@@ -1,0 +1,11 @@
+export const FOCUS_GENERAL_INFORMATION = 100
+export const FOCUS_SUBJECT = 101
+export const FOCUS_RESEARCH = 102
+export const FOCUS_COMMUNITY_SERVICE = 103
+export const FOCUS_BOOKS = 104
+export const FOCUS_BOOK_DETAIL = 105
+export const FOCUS_FACILITIES = 106
+export const FOCUS_ACHIEVEMENTS = 107
+export const FOCUS_ACHIEVEMENTS_DETAIL = 108
+export const FOCUS_LECTURER = 109
+export const FOCUS_LECTURER_DETAIL = 110

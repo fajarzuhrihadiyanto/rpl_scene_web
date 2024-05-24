@@ -1,0 +1,57 @@
+.html {
+    width: 600px;
+    height: 800px;
+    transition: opacity .3s;
+    opacity: 0
+}
+
+.container {
+    padding: 32px
+}
+
+.title {
+    margin-bottom: 0;
+}
+
+.description {
+    text-align: justify;
+    line-height: 2;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.list_item {
+    text-align: justify;
+}
+
+.picture {
+    width: 80%;
+}
+
+.lecturer_data {
+    font-size: 1.5rem;
+}
+
+.publication {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.publication a, .button {
+    display: block;
+    padding: 16px;
+    border: 1px solid black;
+    color: black;
+    text-decoration: none;
+}
+
+.publication a:hover, .button:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
