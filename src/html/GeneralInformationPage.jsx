@@ -12,8 +12,8 @@ const GeneralInformationPage = () => {
             className={styles.html}
             >
             <div className={styles.container}>
-                <h1 style={{margin: 0, marginBottom: '16px'}}>Selamat Datang di halaman Laboratorium Grafika, Interaksi dan Game.</h1>
-                <p style={{fontSize: '18pt', margin: 0, textAlign: 'justify'}}>Laboratorium ini di bidang minat ini menawarkan bidang keahlian yang ditekankan pada kemampuan lulusan dalam mendesain, mengembangkan dan mendokumentasikan proses pembuatan game sesuai dengan standar. Serta membuat model 3 dimensi dan pemograman di dalam realitas virtual serta aplikasi realitas virtual 3 dimensi dengan menggunakan game engine.</p>
+                <h1 style={{margin: 0, marginBottom: '16px'}}>Selamat Datang di halaman Laboratorium Rekayasa Perangkat Lunak.</h1>
+                <p style={{fontSize: '18pt', margin: 0, textAlign: 'justify'}}>Di Laboratorium ini ditawarkan bidang minat yang berfokus pada keahlian melakukan pengujian perangkat lunak, Kemampuan mengelola proyek perangkat lunak, Kemampuan mengurangi resiko kesalahan perangkat lunak, dan Kemampuan membuat perangkat lunak game.</p>
             </div>
         </Html>
     )
