@@ -30,7 +30,7 @@ const TableArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
-            const cameraPosition = isMobile ? [-0.539, 1.312, 1.5] : [-0.539, 1.312, 2.5]
+            const cameraPosition = isMobile ? [-0.539, 1.312, 1.5] : [-0.539, 1.312, 2]
             setIsHovered(false)
             setFocusTarget(FOCUS_GENERAL_INFORMATION)
             setCameraPosition(cameraPosition)
