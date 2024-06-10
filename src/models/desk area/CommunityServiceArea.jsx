@@ -9,6 +9,7 @@ import useMainStore from "../../store/useMainStore"
 import { FOCUS_COMMUNITY_SERVICE } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import CommunnityServicePage from "../../html/CommunityServicePage"
+import { useResponsiveScreen } from "../../utils"
 
 const CommunityServiceArea = ({ nodes, materials }) => {
 
@@ -19,6 +20,7 @@ const CommunityServiceArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     const onPointerOver = React.useCallback(() => {
         if (focusTarget === null) setIsHovered(true)
@@ -30,9 +32,10 @@ const CommunityServiceArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [-0.868, 0.7, -1.35] : [-0.991, 0.7, -1.547]
             setIsHovered(false)
             setFocusTarget(FOCUS_COMMUNITY_SERVICE)
-            setCameraPosition([-0.991, 0.7, -1.547])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([-.104, 0, -.16])
         }
     }, [focusTarget])

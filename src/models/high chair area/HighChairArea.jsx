@@ -8,6 +8,7 @@ import useMainStore from "../../store/useMainStore"
 import { FOCUS_FACILITIES } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import FacilityPage from "../../html/FacilityPage"
+import { useResponsiveScreen } from "../../utils"
 
 const Chair = ({ nodes, materials, ...props}) => {
     return (
@@ -32,6 +33,7 @@ const HighChairArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     const onPointerOver = React.useCallback(() => {
         if (focusTarget === null) setIsHovered(true)
@@ -43,9 +45,10 @@ const HighChairArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [1.117, 1.135, -5.4] : [1.117, 1.135, -5.626]
             setIsHovered(false)
             setFocusTarget(FOCUS_FACILITIES)
-            setCameraPosition([1.117, 1.135, -5.626])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([0, 0, -.01])
         }
     }, [focusTarget])

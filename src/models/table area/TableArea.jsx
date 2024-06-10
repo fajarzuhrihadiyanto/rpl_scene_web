@@ -8,6 +8,7 @@ import Monitor from "./Monitor"
 import Table from "./Table"
 import { FOCUS_GENERAL_INFORMATION } from "../../constants"
 import useMainStore from "../../store/useMainStore"
+import { useResponsiveScreen } from "../../utils"
 
 const TableArea = ({ nodes, materials }) => {
     // Get state and setter from the store
@@ -15,6 +16,7 @@ const TableArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     const [isHovered, setIsHovered] = React.useState(false)
 
@@ -28,9 +30,10 @@ const TableArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [-0.539, 1.312, 1.5] : [-0.539, 1.312, 2.5]
             setIsHovered(false)
             setFocusTarget(FOCUS_GENERAL_INFORMATION)
-            setCameraPosition([-0.539, 1.312, 2])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([0, 0, .01])
         }
     }, [focusTarget])

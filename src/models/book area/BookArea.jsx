@@ -10,6 +10,7 @@ import useMainStore from "../../store/useMainStore"
 import { FOCUS_LECTURER, FOCUS_SUBJECT } from "../../constants"
 import Lecturers from "./Lecturers"
 import Tooltip from "../../components/Tootlip"
+import { useResponsiveScreen } from "../../utils"
 
 const BookArea = ({ nodes, materials }) => {
 
@@ -18,6 +19,7 @@ const BookArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     // ### SUBJECT AREA ###
     const [isHovered, setIsHovered] = React.useState(false)
@@ -42,16 +44,17 @@ const BookArea = ({ nodes, materials }) => {
     const onClick = React.useCallback(() => {
         // only rise click event while on main view
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [-1, 1.725, -.925] : [-2.65, 1.725, -.95]
             setIsHovered(false)
             setFocusTarget(FOCUS_SUBJECT)
-            setCameraPosition([-2.65, 1.725, -.95])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([-.01,0,0])
         }
     }, [focusTarget])
 
     // ### END OF SUBJECT AREA ###
 
-    // ### SUBJECT AREA ###
+    // ### LECTURERS AREA ###
     const [isLecHovered, setLecIsHovered] = React.useState(false)
 
     // subject area hover function
@@ -74,16 +77,13 @@ const BookArea = ({ nodes, materials }) => {
     const onLecClick = React.useCallback(() => {
         // only rise click event while on main view
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [-1, 1.225, -.925] : [-2.65, 1.225, -.95]
             setLecIsHovered(false)
             setFocusTarget(FOCUS_LECTURER)
-            setCameraPosition([-2.65, 1.225, -.95])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([-.01,0,0])
         }
     }, [focusTarget])
-
-    // ### LECTURERS AREA ###
-
-
 
     // ### END OF LECTURERS AREA ###
 

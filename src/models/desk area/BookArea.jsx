@@ -9,6 +9,7 @@ import useMainStore from "../../store/useMainStore"
 import { FOCUS_BOOKS } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import BookPage from "../../html/BookPage"
+import { useResponsiveScreen } from "../../utils"
 
 const BookArea = ({ nodes, materials }) => {
     const [isHovered, setIsHovered] = React.useState(false)
@@ -18,6 +19,7 @@ const BookArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     const onPointerOver = React.useCallback(() => {
         if (focusTarget === null) setIsHovered(true)
@@ -29,9 +31,10 @@ const BookArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [1.235, 0.7, -2.415] : [1.358, 0.7, -2.615]
             setIsHovered(false)
             setFocusTarget(FOCUS_BOOKS)
-            setCameraPosition([1.358, 0.7, -2.615])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([.104, 0, -.16])
         }
     }, [focusTarget])

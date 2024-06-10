@@ -8,12 +8,16 @@ import { FOCUS_LECTURER, FOCUS_LECTURER_DETAIL } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import { LECTURERS } from "../../data/lecturers"
 import { LecturerPagesLeft, LecturerPagesRight } from "../../html/LecturerPages"
+import { useResponsiveScreen } from "../../utils"
 
 const Lecturers = ({ nodes, materials }) => {
 
     // Get state and setter from the store
     const focusTarget = useMainStore.useFocusTarget()
     const setFocusTarget = useMainStore.useSetFocusTarget()
+    const setCameraPosition = useMainStore.useSetCameraPosition()
+    const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     // =====| SINGLE BOOK AREA |=====
     // State wether the book is hovered or not, and wether the book is clicked or not
@@ -45,6 +49,13 @@ const Lecturers = ({ nodes, materials }) => {
             e.stopPropagation()
             setFocusTarget(FOCUS_LECTURER_DETAIL)
 
+            if (isMobile) {
+                const cameraPosition = [-2.1, 1.225, -.95], controlsTargetOffset = [-.01,0,0]
+                
+                setCameraPosition(cameraPosition)
+                setControlsTargetOffset(controlsTargetOffset)
+            }
+
             // reset hovered book id
             setHoveredBookId(-1)
 
@@ -56,6 +67,13 @@ const Lecturers = ({ nodes, materials }) => {
     const back = React.useCallback(() => {
         // set focus back to subject
         setFocusTarget(FOCUS_LECTURER)
+
+        if (isMobile) {
+            const cameraPosition = [-1, 1.225, -.925], controlsTargetOffset = [-.01,0,0]
+            
+            setCameraPosition(cameraPosition)
+            setControlsTargetOffset(controlsTargetOffset)
+        }
         
         // reset clicked book id
         setClickedBookId(-1)
@@ -87,13 +105,15 @@ const Lecturers = ({ nodes, materials }) => {
                             onPointerOut={onBookOut}
                             onClick={(e) => {onBookClick(e, i)}}
                             >
+                                {shown &&
                                 <>
-                                    <LecturerPagesLeft shown={shown} photo={lecturer.pictureUrl} name={lecturer.name} isHeadLab={lecturer.isHeadLab}/>
-                                    <LecturerPagesRight shown={shown} backFn={back} lecturer={lecturer} />
+                                    <LecturerPagesLeft photo={lecturer.pictureUrl} name={lecturer.name} isHeadLab={lecturer.isHeadLab}/>
+                                    <LecturerPagesRight backFn={back} lecturer={lecturer} />
                                 </>
+                                }
                         </Book>
                     </Select>
-                    <Tooltip position={[i * .06 + 0,.3,.01]} htmlProps={{scale: hovered ? [.1,.1,.1] : [0,0,0]}} scale={Number(hovered)} opacity={Number(hovered)}>
+                    {focusTarget === FOCUS_LECTURER && <Tooltip position={[i * .06 + 0,.3,.01]} htmlProps={{scale: hovered ? [.1,.1,.1] : [0,0,0]}} scale={Number(hovered)} opacity={Number(hovered)}>
                         <p
                             style={{
                                 margin: 0,
@@ -103,7 +123,7 @@ const Lecturers = ({ nodes, materials }) => {
                         >
                             {lecturer.name}
                         </p>
-                    </Tooltip>
+                    </Tooltip>}
                     </>
             )})}
         </group>

@@ -9,6 +9,7 @@ import useMainStore from "../../store/useMainStore"
 import { FOCUS_RESEARCH } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import ResearchPage from "../../html/ResearchPage"
+import { useResponsiveScreen } from "../../utils"
 
 const ResearchArea = ({ nodes, materials }) => {
 
@@ -19,6 +20,7 @@ const ResearchArea = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const {isMobile} = useResponsiveScreen()
 
     const onPointerOver = React.useCallback(() => {
         if (focusTarget === null) setIsHovered(true)
@@ -30,9 +32,10 @@ const ResearchArea = ({ nodes, materials }) => {
 
     const onClick = React.useCallback(() => {
         if (focusTarget === null) {
+            const cameraPosition = isMobile ? [1.235, 0.7, .5] : [1.37, 0.7, .3]
             setIsHovered(false)
             setFocusTarget(FOCUS_RESEARCH)
-            setCameraPosition([1.37, 0.7, .3])
+            setCameraPosition(cameraPosition)
             setControlsTargetOffset([.104, 0, -.16])
         }
     }, [focusTarget])
