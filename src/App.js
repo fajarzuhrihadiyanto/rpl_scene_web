@@ -7,6 +7,7 @@ import BackButton from './components/BackButton'
 import ControlContainer from './context/ControlsContext'
 import Lab from './models/Lab'
 import Loader from './models/Loader'
+import DataDownloader from './components/DataDownloader'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       {/* IMPORTANT : DO NOT SET FRAMELOOP TO DEMAND, SOMETIME IT WILL STOP THE ANIMATION RENDERING */}
       <Canvas camera={{position: cameraPosition}}>
         <Suspense fallback={<Loader />}>
+          <DataDownloader />
           <Environment background files={'./kloppenheim_02_puresky_4k.hdr'}/>
           <ambientLight intensity={5} />
 

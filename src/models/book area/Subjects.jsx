@@ -2,13 +2,13 @@ import React from "react"
 import { useCursor } from "@react-three/drei"
 import { Select } from "@react-three/postprocessing"
 
-import { SUBJECT } from "../../data/subject"
 import useMainStore from "../../store/useMainStore"
 import Book from "./Book"
 import { FOCUS_BOOK_DETAIL, FOCUS_SUBJECT } from "../../constants"
 import Tooltip from "../../components/Tootlip"
 import { SubjectPagesLeft, SubjectPagesRight } from "../../html/SubjectPages"
 import { useResponsiveScreen } from "../../utils"
+import useDataStore from "../../store/dataStore"
 
 const Subjects = ({ nodes, materials }) => {
 
@@ -17,6 +17,7 @@ const Subjects = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const subjects = useDataStore.useSubjects()
     const {isMobile} = useResponsiveScreen()
 
     // =====| SINGLE BOOK AREA |=====
@@ -85,7 +86,7 @@ const Subjects = ({ nodes, materials }) => {
 
     return (
         <group position={[-3.573, 1.72, -0.211]} rotation={[0, Math.PI / 2, 0]}>
-            {SUBJECT.map((subject, i) => {
+            {subjects.map((subject, i) => {
                 // status hovered if the book is hovered and the focus target is on subject and no book is clicked
                 const hovered = hoveredBookId === i && focusTarget === FOCUS_SUBJECT && clickedBookId === -1
 
@@ -107,7 +108,7 @@ const Subjects = ({ nodes, materials }) => {
                             >
                                 {shown &&
                                 <>
-                                    <SubjectPagesLeft title={subject.title} description={subject.description} mandatory={subject.mandatory}/>
+                                    <SubjectPagesLeft title={subject.name} description={subject.description} mandatory={subject.is_compulsory}/>
                                     <SubjectPagesRight objective={subject.objective} backFn={back} />
                                 </>
                                 }
@@ -121,7 +122,7 @@ const Subjects = ({ nodes, materials }) => {
                                 textAlign: 'center'
                             }}
                         >
-                            {subject.title}
+                            {subject.name}
                         </p>
                     </Tooltip>}
                     </>

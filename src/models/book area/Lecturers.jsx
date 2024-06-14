@@ -6,9 +6,9 @@ import useMainStore from "../../store/useMainStore"
 import Book from "./Book"
 import { FOCUS_LECTURER, FOCUS_LECTURER_DETAIL } from "../../constants"
 import Tooltip from "../../components/Tootlip"
-import { LECTURERS } from "../../data/lecturers"
 import { LecturerPagesLeft, LecturerPagesRight } from "../../html/LecturerPages"
 import { useResponsiveScreen } from "../../utils"
+import useDataStore from "../../store/dataStore"
 
 const Lecturers = ({ nodes, materials }) => {
 
@@ -17,7 +17,10 @@ const Lecturers = ({ nodes, materials }) => {
     const setFocusTarget = useMainStore.useSetFocusTarget()
     const setCameraPosition = useMainStore.useSetCameraPosition()
     const setControlsTargetOffset = useMainStore.useSetControlsTargetOffset()
+    const professors = useDataStore.useProfessors()
     const {isMobile} = useResponsiveScreen()
+
+    console.log(professors)
 
     // =====| SINGLE BOOK AREA |=====
     // State wether the book is hovered or not, and wether the book is clicked or not
@@ -85,7 +88,7 @@ const Lecturers = ({ nodes, materials }) => {
 
     return (
         <group position={[-3.573, 1.22, -0.211]} rotation={[0, Math.PI / 2, 0]}>
-            {LECTURERS.map((lecturer, i) => {
+            {professors.map((professor, i) => {
                 // status hovered if the book is hovered and the focus target is on subject and no book is clicked
                 const hovered = hoveredBookId === i && focusTarget === FOCUS_LECTURER && clickedBookId === -1
 
@@ -107,8 +110,8 @@ const Lecturers = ({ nodes, materials }) => {
                             >
                                 {shown &&
                                 <>
-                                    <LecturerPagesLeft photo={lecturer.pictureUrl} name={lecturer.name} isHeadLab={lecturer.isHeadLab}/>
-                                    <LecturerPagesRight backFn={back} lecturer={lecturer} />
+                                    <LecturerPagesLeft photo={professor.photo_url} name={professor.fullname} isHeadLab={professor.is_head_lab}/>
+                                    <LecturerPagesRight backFn={back} lecturer={professor} />
                                 </>
                                 }
                         </Book>
@@ -121,7 +124,7 @@ const Lecturers = ({ nodes, materials }) => {
                                 textAlign: 'center'
                             }}
                         >
-                            {lecturer.name}
+                            {professor.fullname}
                         </p>
                     </Tooltip>}
                     </>

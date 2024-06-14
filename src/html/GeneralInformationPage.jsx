@@ -1,8 +1,10 @@
 import { Html } from "@react-three/drei"
 
 import styles from './styles/GeneralInformationPage.module.css'
+import useDataStore from "../store/dataStore"
 
 const GeneralInformationPage = () => {
+    const labDescription = useDataStore.useLabDescription()
     return (
         <Html
             transform
@@ -13,7 +15,7 @@ const GeneralInformationPage = () => {
             >
             <div className={styles.container}>
                 <h1 style={{margin: 0, marginBottom: '16px'}}>Selamat Datang di halaman Laboratorium Rekayasa Perangkat Lunak.</h1>
-                <p style={{fontSize: '18pt', margin: 0, textAlign: 'justify'}}>Di Laboratorium ini ditawarkan bidang minat yang berfokus pada keahlian melakukan pengujian perangkat lunak, Kemampuan mengelola proyek perangkat lunak, Kemampuan mengurangi resiko kesalahan perangkat lunak, dan Kemampuan membuat perangkat lunak game.</p>
+                <p style={{fontSize: '18pt', margin: 0, textAlign: 'justify'}}>{labDescription}</p>
             </div>
         </Html>
     )

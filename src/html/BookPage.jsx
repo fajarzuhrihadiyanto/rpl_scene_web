@@ -1,9 +1,10 @@
 import { Html } from "@react-three/drei"
 
 import styles from './styles/ResearchPage.module.css'
-import { BOOKS } from "../data/books"
+import useDataStore from "../store/dataStore"
 
 const BookPage = ({ isShow }) => {
+    const books = useDataStore.useBooks()
     return (
         <Html
             transform
@@ -18,8 +19,8 @@ const BookPage = ({ isShow }) => {
             <div className={styles.container}>
                 <h1 className={styles.title}>Daftar Buku</h1>
                 <ul className={styles.list}>
-                    {BOOKS.map((book, index) => (
-                        <li key={index}>{book.year} - {book.title}</li>
+                    {books.map((book, index) => (
+                        <li key={index}>{book.release_year} - {book.title}{book.professor_fullname && `, ${book.professor_fullname}`}</li>
                     ))}
                 </ul>
             </div>
